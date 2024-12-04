@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Image, StatusBar } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  StatusBar,
+} from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Ionicons } from '@expo/vector-icons';
-import Elec from '../../materialData/electric';
+import { Ionicons } from "@expo/vector-icons";
+import Elec from "../../materialData/electric";
 
 const prixKwh = 600; // Prix du kWh en MGA
 
 export default function Electricite() {
   const [newElec, setNewElec] = useState({
-    appliance: '',
-    brand: '',
-    purchaseDate: '',
-    warrantyDate: '',
-    expirationDate: '',
-    energyConsumption: '',
-    location: '',
-    category: '',
-    shop: '',
-    dailyUsageHours: ''
+    appliance: "",
+    brand: "",
+    purchaseDate: "",
+    warrantyDate: "",
+    expirationDate: "",
+    energyConsumption: "",
+    location: "",
+    category: "",
+    shop: "",
+    dailyUsageHours: "",
   });
 
   const handleDeleteElec = (id) => {
-    const updatedElecs = elecs.filter(elec => elec.id !== id);
+    const updatedElecs = elecs.filter((elec) => elec.id !== id);
     setElecs(updatedElecs);
   };
 
@@ -29,7 +38,7 @@ export default function Electricite() {
   const [isAddingNewElec, setIsAddingNewElec] = useState(false);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDateKey, setSelectedDateKey] = useState('');
+  const [selectedDateKey, setSelectedDateKey] = useState("");
 
   const showDatePicker = (key) => {
     setSelectedDateKey(key);
@@ -53,16 +62,16 @@ export default function Electricite() {
     const updatedElecs = [...elecs, newElec];
     setElecs(updatedElecs);
     setNewElec({
-      appliance: '',
-      brand: '',
-      purchaseDate: '',
-      warrantyDate: '',
-      expirationDate: '',
-      energyConsumption: '',
-      location: '',
-      category: '',
-      shop: '',
-      dailyUsageHours: ''
+      appliance: "",
+      brand: "",
+      purchaseDate: "",
+      warrantyDate: "",
+      expirationDate: "",
+      energyConsumption: "",
+      location: "",
+      category: "",
+      shop: "",
+      dailyUsageHours: "",
     });
     setIsAddingNewElec(false);
   };
@@ -81,8 +90,11 @@ export default function Electricite() {
   // Fonction pour calculer le prix total de la consommation estimée par mois
   const calculerPrixTotal = () => {
     let prixTotal = 0;
-    elecs.forEach(elec => {
-      const consommationMensuelle = calculerConsommationEstimeeParMois(elec.energyConsumption, elec.dailyUsageHours);
+    elecs.forEach((elec) => {
+      const consommationMensuelle = calculerConsommationEstimeeParMois(
+        elec.energyConsumption,
+        elec.dailyUsageHours
+      );
       prixTotal += consommationMensuelle * prixKwh;
     });
     return prixTotal;
@@ -91,14 +103,20 @@ export default function Electricite() {
   return (
     <View>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={{
-          marginTop: '10%',
-          marginHorizontal: '2%'
-        }}>
+        <View
+          style={{
+            marginTop: "10%",
+            marginHorizontal: "2%",
+          }}
+        >
           {/*--------------------------- Text au top du nav bar --------------------------- */}
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <View style={{ width: "56%" }}>
-              <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
+              <Text
+                style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+              >
                 la consommation d’électricité approximative ⚡{" "}
               </Text>
             </View>
@@ -149,14 +167,19 @@ export default function Electricite() {
                     marginTop: 5,
                     fontWeight: "bold",
                     fontSize: 21,
-                    width: 250
+                    width: 250,
                   }}
                 >
                   {calculerPrixTotal().toFixed(2)} Mga
                 </Text>
               </View>
               <View
-                style={{ position: "absolute", top: -70, right: 0, bottom: 150 }}
+                style={{
+                  position: "absolute",
+                  top: -70,
+                  right: 0,
+                  bottom: 150,
+                }}
               >
                 <Image
                   source={require("./images/houseElec.png")}
@@ -167,8 +190,7 @@ export default function Electricite() {
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 9
-                ,
+                marginTop: 9,
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
@@ -209,7 +231,9 @@ export default function Electricite() {
             }}
           >
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "white", fontWeight: "bold", fontSize: 19 }}>
+              <Text
+                style={{ color: "white", fontWeight: "bold", fontSize: 19 }}
+              >
                 Matériel
               </Text>
               <Text style={{ color: "white", marginLeft: 5, fontSize: 19 }}>
@@ -233,67 +257,88 @@ export default function Electricite() {
 
           <StatusBar style="auto" />
         </View>
-        
-        <View style={{
-          marginTop: '5%',
-          flexDirection: 'row',
-        }}>
-          <View style={{
-            width: 2,
-            height: '100%',
-            backgroundColor: 'white',
-            marginLeft: '4%'
-          }}>
 
-          </View>
-          <View style={{
-            marginHorizontal: '5%',
-            marginTop: '3%'
-          }}>
+        <View
+          style={{
+            marginTop: "5%",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              width: 2,
+              height: "100%",
+              backgroundColor: "white",
+              marginLeft: "4%",
+            }}
+          ></View>
+          <View
+            style={{
+              marginHorizontal: "5%",
+              marginTop: "3%",
+            }}
+          >
             {!isAddingNewElec ? (
-              elecs.map(elec => (
+              elecs.map((elec) => (
                 <View key={elec.id} style={styles.elecContainer}>
-                  <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteElec(elec.id)}>
+                  <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => handleDeleteElec(elec.id)}
+                  >
                     <Ionicons name="trash" size={30} color="#757FAE" />
                   </TouchableOpacity>
                   <Text style={styles.name}>{elec.appliance}</Text>
-                  <Text>L'appareil se trouve dans la pièce : {elec.location}</Text>
+                  <Text>
+                    L'appareil se trouve dans la pièce : {elec.location}
+                  </Text>
                   <Text>Consommation d'énergie: </Text>
                   <Text style={styles.name2}>{elec.energyConsumption}W</Text>
                   <Text>Durée de fonctionnement quotidienne: </Text>
-                  <Text style={styles.name2}>{elec.dailyUsageHours} heures/jours</Text>
+                  <Text style={styles.name2}>
+                    {elec.dailyUsageHours} heures/jours
+                  </Text>
                 </View>
               ))
             ) : (
               <View style={styles.formContainer}>
-              <Text style={styles.formTitle}>Add New Elec</Text>
-              <TextInput
-                style={styles.input}
-                placeholder=" Appliance "
-                value={newElec.appliance}
-                onChangeText={text => handleInputChange('appliance', text)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder=" Puissance "
-                value={newElec.energyConsumption}
-                keyboardType="numeric"
-                onChangeText={text => handleInputChange('energyConsumption', text)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="  Daily Usage Hours"
-                value={newElec.dailyUsageHours}
-                keyboardType="numeric"
-                onChangeText={text => handleInputChange('dailyUsageHours', text)}
-              />
-              <TouchableOpacity style={styles.addButton} onPress={handleAddElec}>
-                <Text style={styles.addButtonText}>Ajouter</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.backButton} onPress={() => setIsAddingNewElec(false)}>
-                <Text style={styles.backButtonText}>Back</Text>
-              </TouchableOpacity>
-            </View>
+                <Text style={styles.formTitle}>Add New Elec</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder=" Appliance "
+                  value={newElec.appliance}
+                  onChangeText={(text) => handleInputChange("appliance", text)}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder=" Puissance "
+                  value={newElec.energyConsumption}
+                  keyboardType="numeric"
+                  onChangeText={(text) =>
+                    handleInputChange("energyConsumption", text)
+                  }
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="  Daily Usage Hours"
+                  value={newElec.dailyUsageHours}
+                  keyboardType="numeric"
+                  onChangeText={(text) =>
+                    handleInputChange("dailyUsageHours", text)
+                  }
+                />
+                <TouchableOpacity
+                  style={styles.addButton}
+                  onPress={handleAddElec}
+                >
+                  <Text style={styles.addButtonText}>Ajouter</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => setIsAddingNewElec(false)}
+                >
+                  <Text style={styles.backButtonText}>Back</Text>
+                </TouchableOpacity>
+              </View>
             )}
           </View>
         </View>
@@ -304,12 +349,15 @@ export default function Electricite() {
           onCancel={hideDatePicker}
         />
       </ScrollView>
-      <TouchableOpacity style={styles.floatingButton} onPress={() => setIsAddingNewElec(true)}>
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => setIsAddingNewElec(true)}
+      >
         <Ionicons name="add" size={24} color="white" />
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -491,7 +539,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   deleteButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 5,
     right: 5,
   },

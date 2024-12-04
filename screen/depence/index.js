@@ -11,16 +11,18 @@ import {
   Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
+import { styles } from "./styles";
+
 export default function Depense() {
-  const [budget, setBudget] = useState(1280720); // Initial budget
-  const [newProduct, setNewProduct] = useState(""); // State for the name of the new product
-  const [newProductPrice, setNewProductPrice] = useState(""); // State for the price of the new product
-  const [newProductDescription, setNewProductDescription] = useState(""); // State for the description of the new product
-  const [transactions, setTransactions] = useState([]); // State for storing transactions
-  const [modalVisible, setModalVisible] = useState(false); // State for controlling modal visibility
+  const [budget, setBudget] = useState(1280720);
+  const [newProduct, setNewProduct] = useState("");
+  const [newProductPrice, setNewProductPrice] = useState("");
+  const [newProductDescription, setNewProductDescription] = useState("");
+  const [transactions, setTransactions] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    // Fake data to be displayed by default
     const defaultTransactions = [
       {
         id: 1,
@@ -36,20 +38,17 @@ export default function Depense() {
         price: 800000,
         description: "Canapé confortable pour la salle de séjour",
       },
-      // Add more fake data as needed
     ];
     setTransactions(defaultTransactions);
   }, []);
 
   const handleAddProduct = () => {
-    // Check if the new product price is valid
     const price = parseInt(newProductPrice);
     if (!isNaN(price) && price > 0) {
-      // Update the budget
       const updatedBudget = budget - price;
       if (updatedBudget >= 0) {
         setBudget(updatedBudget);
-        // Add the new product to transactions
+
         const newTransaction = {
           item: newProduct,
           price: price,
@@ -59,11 +58,11 @@ export default function Depense() {
           ...prevTransactions,
           newTransaction,
         ]);
-        // Clear the input fields
+
         setNewProduct("");
         setNewProductPrice("");
         setNewProductDescription("");
-        // Close the modal
+
         setModalVisible(false);
       } else {
         alert("Le budget n'est pas suffisant !");
@@ -187,15 +186,6 @@ export default function Depense() {
                 borderColor: "white",
               }}
             ></View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(true)}
-              style={{ position: "absolute", right: 10 }}
-            >
-              <Image
-                source={require("./images/plus.png")}
-                style={{ width: 20, height: 20, }}
-              />
-            </TouchableOpacity>
           </View>
 
           <View>
@@ -203,7 +193,17 @@ export default function Depense() {
               <View key={index} style={styles.container1}>
                 <Text style={styles.name}>{transaction.item}</Text>
                 <Text style={styles.name2}>{transaction.description}</Text>
-                <Text style={{paddingBottom: 13, fontSize: 14, fontWeight: "bold", marginLeft: 20, color: '#fff'}}>{transaction.price} MGA</Text>
+                <Text
+                  style={{
+                    paddingBottom: 13,
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    marginLeft: 20,
+                    color: "#fff",
+                  }}
+                >
+                  {transaction.price} MGA
+                </Text>
               </View>
             ))}
           </View>
@@ -226,7 +226,7 @@ export default function Depense() {
       >
         <View style={styles.modalView}>
           <Text style={{ fontSize: 20, paddingBottom: 20, paddingTop: 20 }}>
-            Ajouter un nouveau produit 
+            Ajouter un nouveau produit
           </Text>
           <TextInput
             style={styles.input}
@@ -257,80 +257,3 @@ export default function Depense() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    marginHorizontal: "4%",
-    marginTop: 45,
-  },
-  container1: {
-    flex: 1,
-    backgroundColor: "#F9C877",
-    marginHorizontal: "4%",
-    marginTop: 15,
-    borderRadius: 8
-  },
-  floatingButton: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    backgroundColor: "#76CE9E",
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 3,
-  },
-  modalView: {
-    margin: 16,
-    marginTop: 215,
-    paddingBottom: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    paddingTop: 10,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    color: "#f0f5f5",
-    fontSize: 12,
-    borderWidth: 1,
-    borderRadius: 12,
-    marginVertical: 5,
-    padding: 5,
-    width: 250,
-  },
-  addButton: {
-    backgroundColor: "#76CE9E",
-    padding: 10,
-    borderRadius: 12,
-    alignItems: "center",
-    marginTop: 10,
-    height: 40,
-    width: 250,
-  },
-  name: {
-    fontSize: 19,
-    fontWeight: "bold",
-    color: "#fff",
-    marginLeft: 20,
-    paddingTop: 6,
-  },
-  name2: {
-    fontSize: 12,
-    color: "#fff",
-    marginLeft: 20,
-  },
-});
